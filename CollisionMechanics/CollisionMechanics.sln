@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollisionMechanics", "CollisionMechanics.csproj", "{63A664BE-89CD-4831-AD90-6F35C8AAF4EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63A664BE-89CD-4831-AD90-6F35C8AAF4EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63A664BE-89CD-4831-AD90-6F35C8AAF4EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63A664BE-89CD-4831-AD90-6F35C8AAF4EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63A664BE-89CD-4831-AD90-6F35C8AAF4EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {684AB101-1F14-4C89-BF76-A29D68FF4FA2}
+	EndGlobalSection
+EndGlobal
