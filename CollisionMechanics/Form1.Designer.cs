@@ -181,6 +181,7 @@
             this.btnStop.TabIndex = 19;
             this.btnStop.Text = "Стоп";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnStart
             // 
@@ -190,6 +191,7 @@
             this.btnStart.TabIndex = 18;
             this.btnStart.Text = "Старт";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnStep
             // 
@@ -199,6 +201,7 @@
             this.btnStep.TabIndex = 17;
             this.btnStep.Text = "Шаг++";
             this.btnStep.UseVisualStyleBackColor = true;
+            this.btnStep.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnClose
             // 
@@ -229,6 +232,7 @@
             this.Name = "Form1";
             this.Text = "Механика столкновений";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
