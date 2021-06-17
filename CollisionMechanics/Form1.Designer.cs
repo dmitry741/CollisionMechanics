@@ -57,6 +57,9 @@
             this.pictureBox1.Size = new System.Drawing.Size(664, 664);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // btnClearMap
             // 
@@ -66,6 +69,7 @@
             this.btnClearMap.TabIndex = 16;
             this.btnClearMap.Text = "Очистить карту";
             this.btnClearMap.UseVisualStyleBackColor = true;
+            this.btnClearMap.Click += new System.EventHandler(this.btnClearMap_Click);
             // 
             // groupBox1
             // 
@@ -92,6 +96,7 @@
             this.btnColor.TabIndex = 5;
             this.btnColor.Text = "Цвет";
             this.btnColor.UseVisualStyleBackColor = true;
+            this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
             // 
             // panel1
             // 
@@ -172,6 +177,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(134, 21);
             this.comboBox1.TabIndex = 13;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // btnStop
             // 
