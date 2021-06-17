@@ -52,9 +52,6 @@ namespace CollisionMechanics
 
             w1 = (C1 - m2 * w2) / m1;
 
-            //double delta1 = Math.Abs(m1 * w1 + m2 * w2 - C1);
-            //double delta2 = Math.Abs(m1 * w1 * w1 + m2 * w2 * w2 - C2);
-
             return true;
         }
 
@@ -70,10 +67,7 @@ namespace CollisionMechanics
             double X22 = wall.X2;
             double Y22 = wall.Y2;
 
-            double X, Y;
-            bool result;
-
-            LinearSolver.SolveLinear(X11, Y11, X12, Y12, X21, Y21, X22, Y22, out result, out X, out Y);
+            LinearSolver.SolveLinear(X11, Y11, X12, Y12, X21, Y21, X22, Y22, out bool result, out _, out _);
 
             return result;
         }
@@ -172,9 +166,6 @@ namespace CollisionMechanics
 
         static private void CorrectPosition(Ball ball, Wall wall)
         {
-            // === correct position ===
-            bool result;
-
             double x0 = ball.X;
             double y0 = ball.Y;
 
@@ -187,7 +178,7 @@ namespace CollisionMechanics
                 ball.X = x0 + (ball.Velocity.X * t);
                 ball.Y = y0 + (ball.Velocity.Y * t);
 
-                Distance(ball, wall.X1, wall.Y1, wall.X2, wall.Y2, out D, out result);
+                Distance(ball, wall.X1, wall.Y1, wall.X2, wall.Y2, out D, out _);
                 r = Math.Abs(D - ball.R);
 
                 if (r < 0.01)
@@ -196,7 +187,7 @@ namespace CollisionMechanics
                 ball.X = x0 + (ball.Velocity.X * (t + c_dt));
                 ball.Y = y0 + (ball.Velocity.Y * (t + c_dt));
 
-                Distance(ball, wall.X1, wall.Y1, wall.X2, wall.Y2, out D1, out result);
+                Distance(ball, wall.X1, wall.Y1, wall.X2, wall.Y2, out D1, out _);
 
                 f = D - ball.R;
                 fn = (D1 - D) / c_dt;
@@ -257,7 +248,6 @@ namespace CollisionMechanics
 
         static private void CorrectPosition(Ball ball, double X, double Y)
         {
-            // === correct position ===
             double x0 = ball.X;
             double y0 = ball.Y;
 
@@ -292,9 +282,7 @@ namespace CollisionMechanics
         static private bool CheckCollision(Ball ball1, Ball ball2)
         {
             Vector axe = new Vector(ball2.X - ball1.X, ball2.Y - ball1.Y);
-            bool result = (Scalar(ball1.Velocity, axe) <= 0 && Scalar(ball2.Velocity, axe) >= 0) ? false : true;
-
-            return result;
+            return Scalar(ball1.Velocity, axe) > 0 || Scalar(ball2.Velocity, axe) < 0;
         }
 
         static private bool CheckIDs(Ball ball1, Ball ball2)
