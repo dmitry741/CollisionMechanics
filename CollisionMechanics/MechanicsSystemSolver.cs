@@ -36,9 +36,7 @@ namespace CollisionMechanics
             double B = -2 * C1 * m2;
             double C = C1 * C1 - C2 * m1;
 
-            double x1, x2;
-
-            if (!SolveSquareEquation(A, B, C, out x1, out x2))
+            if (!SolveSquareEquation(A, B, C, out double x1, out double x2))
                 return false;
 
             if (bFirst)
@@ -87,7 +85,7 @@ namespace CollisionMechanics
                 Ys = ball.Y + ball.Velocity.Y * t;
 
                 D = Math.Sqrt((Xs - X) * (Xs - X) + (Ys - Y) * (Ys - Y));
-                r = Math.Abs(D - ball.R);
+                r = Math.Abs(D - ball.Radius);
 
                 if (r < 0.01)
                 {
@@ -179,7 +177,7 @@ namespace CollisionMechanics
                 ball.Y = y0 + (ball.Velocity.Y * t);
 
                 Distance(ball, wall.X1, wall.Y1, wall.X2, wall.Y2, out D, out _);
-                r = Math.Abs(D - ball.R);
+                r = Math.Abs(D - ball.Radius);
 
                 if (r < 0.01)
                     break;
@@ -189,7 +187,7 @@ namespace CollisionMechanics
 
                 Distance(ball, wall.X1, wall.Y1, wall.X2, wall.Y2, out D1, out _);
 
-                f = D - ball.R;
+                f = D - ball.Radius;
                 fn = (D1 - D) / c_dt;
 
                 t -= (f / fn);
@@ -216,7 +214,7 @@ namespace CollisionMechanics
                 ball2.Y = y20 + (ball2.Velocity.Y * t);
 
                 D = Distance(ball1, ball2);
-                r = Math.Abs(D - ball1.R - ball2.R);
+                r = Math.Abs(D - ball1.Radius - ball2.Radius);
 
                 if (r < 0.01)
                     break;
@@ -228,7 +226,7 @@ namespace CollisionMechanics
 
                 D1 = Distance(ball1, ball2);
 
-                f = D - ball1.R - ball2.R;
+                f = D - ball1.Radius - ball2.Radius;
                 fn = (D1 - D) / c_dt;
 
                 t -= (f / fn);
@@ -261,7 +259,7 @@ namespace CollisionMechanics
                 ball.Y = y0 + (ball.Velocity.Y * t);
 
                 D = Math.Sqrt((ball.X - X) * (ball.X - X) + (ball.Y - Y) * (ball.Y - Y));
-                r = Math.Abs(D - ball.R);
+                r = Math.Abs(D - ball.Radius);
 
                 if (r < 0.01)
                     break;
@@ -271,7 +269,7 @@ namespace CollisionMechanics
 
                 D1 = Math.Sqrt((ball.X - X) * (ball.X - X) + (ball.Y - Y) * (ball.Y - Y));
 
-                f = D - ball.R;
+                f = D - ball.Radius;
                 fn = (D1 - D) / c_dt;
 
                 t -= (f / fn);
@@ -291,10 +289,10 @@ namespace CollisionMechanics
 
             do
             {
-                if ((ball1.id * ball2.id) == 0)
+                if ((ball1.Id * ball2.Id) == 0)
                     break;
 
-                if (ball1.id != ball2.id)
+                if (ball1.Id != ball2.Id)
                     break;
 
                 result = true;
@@ -312,7 +310,7 @@ namespace CollisionMechanics
 
             double D = Math.Sqrt((ball.X - X) * (ball.X - X) + (ball.Y - Y) * (ball.Y - Y));
 
-            if (D > ball.R)
+            if (D > ball.Radius)
             {
                 if (!IntersectInPreviousStep(ball, X, Y))
                     return;
@@ -323,15 +321,15 @@ namespace CollisionMechanics
             // вектор соединяющий точку и центр шара
             Vector vAxe = new Vector(ball.X - X, ball.Y - Y);
 
-            double Xn = X + vAxe.Ort.X * ball.R / 16;
-            double Yn = Y + vAxe.Ort.Y * ball.R / 16;
+            double Xn = X + vAxe.Ort.X * ball.Radius / 16;
+            double Yn = Y + vAxe.Ort.Y * ball.Radius / 16;
 
             Vector vOrt = vAxe.Ortogonal.Ort;
 
-            double X1 = Xn + vOrt.X * 2 * ball.R;
-            double Y1 = Yn + vOrt.Y * 2 * ball.R;
-            double X2 = Xn - vOrt.X * 2 * ball.R;
-            double Y2 = Yn - vOrt.Y * 2 * ball.R;
+            double X1 = Xn + vOrt.X * 2 * ball.Radius;
+            double Y1 = Yn + vOrt.Y * 2 * ball.Radius;
+            double X2 = Xn - vOrt.X * 2 * ball.Radius;
+            double Y2 = Yn - vOrt.Y * 2 * ball.Radius;
 
             Wall wall = new Wall(X1, Y1, X2, Y2);
 
@@ -347,7 +345,7 @@ namespace CollisionMechanics
             // случай 1, расстояние от центра шара до стены меньше радиуса шара
             Distance(ball, wall.X1, wall.Y1, wall.X2, wall.Y2, out double D, out bool result);
 
-            if (D > ball.R || !result)
+            if (D > ball.Radius || !result)
             {
                 if (!IntersectInPreviousStep(ball, wall))
                     return;
@@ -366,7 +364,7 @@ namespace CollisionMechanics
             ball.Velocity = xPro - yPro;
 
             ball.Mark = true;
-            ball.id = 0;
+            ball.Id = 0;
         }
 
         // столкновение двух шаров
@@ -384,7 +382,7 @@ namespace CollisionMechanics
             // проверяем расстояние между шарами
             double D = Distance(ball1, ball2);
 
-            if (D > ball1.R + ball2.R)
+            if (D > ball1.Radius + ball2.Radius)
                 return;
 
             Vector vAxeX = new Vector();
@@ -448,7 +446,7 @@ namespace CollisionMechanics
             ball1.Mark = ball2.Mark = true;
 
             s_id++;
-            ball1.id = ball2.id = s_id;
+            ball1.Id = ball2.Id = s_id;
         }
     }
 }

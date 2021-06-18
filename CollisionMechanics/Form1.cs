@@ -20,6 +20,9 @@ namespace CollisionMechanics
         #region members
 
         Bitmap _bitmap = null;
+        readonly Random _rnd = new Random();
+        Point _startPoint = new Point();
+
         readonly Timer _timer = new Timer { Enabled = false };
 
         // коллекция стенок
@@ -28,16 +31,13 @@ namespace CollisionMechanics
         // коллекция шаров
         readonly List<Ball> _balls = new List<Ball>();
 
-        // constants
+        // константы
         const int cDs = 16;
         const double cMaxSpeed = 2.5;
-        const int cMinRadius = 8;
+        const int cMinRadius = 9;
         const int cMinWeight = 1;
         const int cTimeInterval = 25;
 
-        // common members
-        Random _rnd = new Random();
-        Point _startPoint = new Point();
         Wall _wall = null;
 
         #endregion
@@ -63,7 +63,7 @@ namespace CollisionMechanics
             // отрисвока шариков
             foreach (Ball ball in _balls)
             {
-                double R = ball.R;
+                double R = ball.Radius;
                 SolidBrush bubleBrush = new SolidBrush(ball.Color);
                 g.FillEllipse(bubleBrush, new Rectangle((int)(ball.X - R), (int)(ball.Y - R), (int)(2 * R), (int)(2 * R)));
             }
@@ -168,7 +168,7 @@ namespace CollisionMechanics
             {
                 D = Math.Sqrt((X - ball.X) * (X - ball.X) + (Y - ball.Y) * (Y - ball.Y));
 
-                if (D < R + ball.R)
+                if (D < R + ball.Radius)
                 {
                     result = false;
                     break;
@@ -219,7 +219,7 @@ namespace CollisionMechanics
             _bitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
             _timer.Tick += TimerTick;
 
-            // добавляем рамку
+            // добавляем внешнюю рамку чтобы шарики не улетали
             _walls.Add(new Wall(cDs, cDs, pictureBox1.Width - cDs, cDs));
             _walls.Add(new Wall(pictureBox1.Width - cDs, cDs, pictureBox1.Width - cDs, pictureBox1.Height - cDs));
             _walls.Add(new Wall(pictureBox1.Width - cDs, pictureBox1.Height - cDs, cDs, pictureBox1.Height - cDs));
@@ -333,9 +333,9 @@ namespace CollisionMechanics
                     yV *= -1;
                 }
 
-                Ball buble1 = new Ball
+                Ball ball = new Ball
                 {
-                    R = R,
+                    Radius = R,
                     Weight = cMinWeight + comboBox3.SelectedIndex,
                     X = point.X,
                     Y = point.Y,
@@ -343,7 +343,7 @@ namespace CollisionMechanics
                     Velocity = new Vector(xV, yV)
                 };
 
-                _balls .Add(buble1);
+                _balls .Add(ball);
                 label5.Text = _balls.Count.ToString();
 
                 Render();

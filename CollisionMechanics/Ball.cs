@@ -16,7 +16,7 @@ namespace CollisionMechanics
         public Color _color = Color.Black;
         long _id = 0;
 
-        public long id
+        public long Id
         {
             get { return _id; }
             set { _id = value; }
@@ -34,7 +34,7 @@ namespace CollisionMechanics
             set { _bMark = value; }
         }
 
-        public double R
+        public double Radius
         {
             get { return _radius; }
             set { _radius = value; }
@@ -50,15 +50,6 @@ namespace CollisionMechanics
         {
             get { return _velocity; }
             set { _velocity = value; }
-        }
-
-        public double KineticEnergy
-        {
-            get
-            {
-                double len = _velocity.Length;
-                return _weight * len * len / 2;
-            }
         }
 
         public void Go()
