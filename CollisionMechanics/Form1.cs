@@ -65,7 +65,10 @@ namespace CollisionMechanics
             {
                 double R = ball.Radius;
                 SolidBrush bubleBrush = new SolidBrush(ball.Color);
-                g.FillEllipse(bubleBrush, new Rectangle((int)(ball.X - R), (int)(ball.Y - R), (int)(2 * R), (int)(2 * R)));
+                Pen pen = new Pen(ball.Color);
+                Rectangle r = new Rectangle((int)(ball.X - R), (int)(ball.Y - R), (int)(2 * R), (int)(2 * R));
+                g.FillEllipse(bubleBrush, r);
+                g.DrawEllipse(pen, r);
             }
 
             if (comboBox1.SelectedIndex > 0)
